@@ -9,6 +9,6 @@
   - [1 Лаба](/1_sem/DigitlCulture/1)
   - [2 Лаба](/1_sem/DigitlCulture/2)
 - [Архитектура ЭВМ](1_sem/EVM)
-  -[Домашние работы](1_sem/EVM/Hw)
-  -[Лабораторные работы](1_sem/EVM/Labs)
+  - [Домашние работы](1_sem/EVM/Hw)
+  - [Лабораторные работы](1_sem/EVM/Labs)
 - [Программирование](1_sem/Programming)
