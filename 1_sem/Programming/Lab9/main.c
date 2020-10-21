@@ -37,6 +37,7 @@ int main()
         }
     }
 
+    free(grid);
 
     return 0;
 }

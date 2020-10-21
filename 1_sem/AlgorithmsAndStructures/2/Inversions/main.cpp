@@ -1,10 +1,11 @@
 #include <iostream>
+#include <vector>
 
+using namespace std;
 
+long long inversionsCount = 0;
 
-long int inversionsCount = 0;
-
-void compare(long int leftSize, long int const *leftArray, long int rightSize, long int const *rightArray, long int *result)
+void compare(long int leftSize, vector<long long>& leftArray, long int rightSize, vector<long long>& rightArray, vector<long long>& result)
 {
     long int left = 0, right = 0;
     for (long int i = 0; i < leftSize+rightSize; i++)
@@ -36,18 +37,20 @@ void compare(long int leftSize, long int const *leftArray, long int rightSize, l
     }
 }
 
-void divideCompare(long int size, long int *array)
+void divideCompare(long long size, vector<long long>& array)
 {
     if (size == 1) { return; }
 
-    long int divideIndex = size/2;
-    long int *leftArray = malloc(divideIndex*sizeof(long int)), *rightArray = malloc((size-divideIndex)*sizeof(long int));
+    long long divideIndex = size/2;
 
-    for (long int i = 0; i < divideIndex; i++)
+    vector<long long> leftArray(divideIndex), rightArray(size - divideIndex);
+
+    for (long long i = 0; i < divideIndex; i++)
     {
         leftArray[i] = array[i];
     }
-    for (long int i = divideIndex; i < size; i++)
+
+    for (long long i = divideIndex; i < size; i++)
     {
         rightArray[i-divideIndex] = array[i];
     }
@@ -59,29 +62,25 @@ void divideCompare(long int size, long int *array)
 }
 
 int main() {
-    FILE *inputFile = fopen("inversions.in", "r");
-    long int amount; fscanf(inputFile, "%li", &amount);
-    long int *array = malloc(amount*sizeof(long int));
+    cin.tie(0);
+    cout.tie(0);
+    ios::sync_with_stdio(false);
+
+    freopen("inversions.in", "r", stdin);
+    freopen("inversions.out", "w", stdout);
+
+    long long amount;
+    cin >> amount;
+
+    vector<long long> array(amount);
 
     for (long int i = 0; i < amount; i++)
     {
-        fscanf(inputFile, "%li", array+i);
+        cin >> array[i];
     }
-    fclose(inputFile);
-
-    /*long int *array = malloc((long int)1e5 * sizeof(long int));
-    int j = 0;
-
-    for (long int i = (long int)1e5; i > 0; i--)
-    {
-        array[j] = i;
-        j++;
-    }*/
 
     divideCompare(amount, array);
 
-    FILE *outputFile = fopen("inversions.out", "w");
-    fprintf(outputFile, "%li", inversionsCount);
-    fclose(outputFile);
+    cout << inversionsCount;
     return 0;
 }
