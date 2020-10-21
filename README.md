@@ -2,10 +2,6 @@
 
 ## [Первый семестр](/1_sem)
 - [Алгоритмы и структуры данных](/1_sem/AlgorithmsAndStructures)
-  - [1 Лаба](/1_sem/AlgorithmsAndStructures/1)
-  - [2 Лаба](/1_sem/AlgorithmsAndStructures/2)
-  - [3 Лаба](/1_sem/AlgorithmsAndStructures/3)
-  - [4 Лаба](/1_sem/AlgorithmsAndStructures/4)
 - [Цифровая культура](1_sem/DigitlCulture)
   - [1 Лаба](/1_sem/DigitlCulture/1)
   - [2 Лаба](/1_sem/DigitlCulture/2)
