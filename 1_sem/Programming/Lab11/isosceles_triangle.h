@@ -8,10 +8,12 @@
 #ifndef LAB11_ISOSCELES_TRIANGLE_H
 #define LAB11_ISOSCELES_TRIANGLE_H
 
+
 typedef struct point
 {
     double x,y;
 }POINT;
+
 
 typedef struct IsoscelesTriangle
 {
