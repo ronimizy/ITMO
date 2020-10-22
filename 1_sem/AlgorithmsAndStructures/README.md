@@ -1,7 +1,7 @@
 # Алгоритмы и структуры данных
 
 - [1 Лаба](/1_sem/AlgorithmsAndStructures/1)
-- [2 Лаба](/2)
+- [2 Лаба](/1_sem/AlgorithmsAndStructures/2)
     - [Сортировка](/1_sem/AlgorithmsAndStructures/2/Sort)
     - [Соревнования по бегу](/1_sem/AlgorithmsAndStructures/2/Race)
     - [Число инверсий](/1_sem/AlgorithmsAndStructures/2/Inversions)
