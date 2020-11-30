@@ -232,6 +232,21 @@ int main()
 
     MultiMap *map = new MultiMap();
 
+    string a;
+    int counter = 1;
+
+    while (cin >> a)
+    {
+        if (a.size() != 4) continue;
+        printf("%c%s%c, ", '"', a.c_str(), '"');
+        if (counter++%5 == 0) printf("\n");
+    }
+
+    cout << counter;
+
+
+    return 0;
+
     string s;
     while (cin >> s)
     {

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "life.h"
+#include "gif.h"
 
 #define debug
 
@@ -7,7 +8,7 @@ int main(int argc, char **argv)
 {
 
 #ifdef debug
-    argc = 14;
+    argc = 15;
     argv[1] = "--input";
     argv[2] = "pulsar_20.bmp";
     argv[3] = "--output";
@@ -19,9 +20,10 @@ int main(int argc, char **argv)
     argv[9] = "--output_scheme";
     argv[10] = "dark";
     argv[11] = "--output_scale";
-    argv[12] = "11";
+    argv[12] = "1";
     argv[13] = "--input_scale";
     argv[14] = "20";
+    argv[15] = "--gif";
 #endif
 
     Default();
@@ -30,6 +32,13 @@ int main(int argc, char **argv)
     {
         if (strcmp("--input", argv[i]) == 0)
         {
+            int len = strlen(argv[i+1]);
+            if (!(argv[i+1][len-4] == '.' && argv[i+1][len-3] == 'b' && argv[i+1][len-2] == 'm' && argv[i+1][len-1] == 'p'))
+            {
+                printf("\nWrong input file format\n");
+                exit(0);
+            }
+
             CONFIG.inputFile = malloc(strlen(argv[i+1]) +1);
             strcpy(CONFIG.inputFile, argv[i+1]);
             CONFIG.inputFile[strlen(argv[i+1])] = '\0';
@@ -86,6 +95,10 @@ int main(int argc, char **argv)
         {
             CONFIG.outputScale = atoi(argv[i+1]);
         }
+        else if (strcmp("--gif", argv[i]))
+        {
+            CONFIG.gif = 1;
+        }
     }
 
     if (CONFIG.inputFile != 0 && CONFIG.outputDirectory !=0)
@@ -96,6 +109,8 @@ int main(int argc, char **argv)
         field *f = LifeGame(height, width, array);
 
         game(f);
+
+        if (CONFIG.gif) makeGIF(f);
     }
     else
     {

@@ -157,7 +157,7 @@ void game(field *f)
     int result = ageCycle(f);
     int cycles = 1;
 
-    char *fileName = makePath(CONFIG.outputDirectory, cycles);
+    char *fileName = makePath(CONFIG.outputDirectory, cycles, ".bmp\0");
 
     if (cycles % CONFIG.freq == 0) saveBMP(f->history[f->ages - 1], f->height, f->width, fileName);
 
@@ -168,7 +168,7 @@ void game(field *f)
         if (cycles % CONFIG.freq == 0)
         {
             free(fileName);
-            fileName = makePath(CONFIG.outputDirectory, cycles);
+            fileName = makePath(CONFIG.outputDirectory, cycles, ".bmp\0");
 
             saveBMP(f->history[f->ages - 1], f->height, f->width, fileName);
         }
@@ -176,7 +176,7 @@ void game(field *f)
 
     printf("\n-----------------------------------------------------\n");
     printf("The game has ended with %d generations\n", cycles);
-    printf("The reason is: %s", cycles == CONFIG.maxIter ? "Maximum cycles amount reached" : result == 1 ? "No living cells left" : "The game repeated itself");
+    printf(cycles == CONFIG.maxIter ? "Maximum cycles amount reached" : result == 1 ? "No living cells left" : "The game repeated itself");
     printf("\n-----------------------------------------------------\n");
 
     free(fileName);

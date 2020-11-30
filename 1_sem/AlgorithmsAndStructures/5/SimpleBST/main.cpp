@@ -185,6 +185,19 @@ int main()
     string str;
     Tree tree = Tree();
 
+
+
+    string s;
+    int a = 0;
+
+    while (cin >> s)
+    {
+        a++;
+        cout << '"' << s << '"' << ", ";
+        if (a%5 == 0) cout << endl;
+    }
+
+    /*
     while (cin >> str)
     {
         long long value;
@@ -212,7 +225,7 @@ int main()
         {
             tree.eject(value);
         }
-    }
+    }*/
 
     return 0;
 }

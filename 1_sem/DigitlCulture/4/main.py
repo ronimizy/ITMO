@@ -45,7 +45,7 @@ def resize_char_to_capital(str1, idx):    # изменить строчную б
     return result
 
 
-text_file = open("input_text1.txt", "r", encoding="MacCyrillic")
+text_file = open("input_text.txt", "r", encoding="MacCyrillic")
 dict_file = open("dict1.txt", "r", encoding="MacCyrillic")
 fout = open("corrected_text.txt", "w")
 text = text_file.read()
@@ -62,6 +62,8 @@ text = text.replace("»", "")
 text = text.replace("«", "")
 text = text.replace("{", "")
 text = text.replace("}", "")
+text = text.replace("—", "")
+text = text.replace("–", "")
 text = text.lower()
 text_list = text.split()
 frequency = Counter(text_list)
@@ -93,10 +95,11 @@ for word in words_not_in_dict:
         if word[0:i] in dict_of_dict.keys() and word[i:len(word)] in dict_of_dict.keys():
             temp = corrected_words_1.get(word, [])
             if len(temp) == 0:
-                corrected_words_1[word] = [word[0:i], word[i:len(word)]]
+                corrected_words_1[word] = [word[0:i], word[i:len(word)], 0]
             elif (frequency[word[0:i]] + frequency[word[i:len(word)]]) > (frequency[temp[0]] + frequency[temp[1]]):
                 corrected_words_1[word][0] = word[0:i]
                 corrected_words_1[word][1] = word[i:len(word)]
+                corrected_words_1[word][2] += 1
     for ch in dict_of_dict.keys():
         if editorial_distance(word, ch) == 1:
             temp = corrected_words_1.get(word, [])

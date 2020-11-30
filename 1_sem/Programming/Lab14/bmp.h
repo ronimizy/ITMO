@@ -31,7 +31,7 @@ int equal(pixel *a, pixel *b)
            && a->blue == b->blue;
 }
 
-char* makePath(char* directory, int order)
+char* makePath(char* directory, int order, char* extention)
 {
     int size = numCount(order);
     int dirLen = (int) strlen(directory);
@@ -40,22 +40,27 @@ char* makePath(char* directory, int order)
     sprintf(name, "%d", order);
     name[size] = '\0';
 
-    char *path = malloc(dirLen + strlen(name) + 4 + 1);
+    char *path = malloc(dirLen + strlen(name) + strlen(extention));
     strcpy(path, directory);
     strcat(path, name);
-    strcat(path, ".bmp\0");
+    strcat(path, extention);
 
     free(name);
     return path;
 }
 
-void dtox(FILE* f, int a)
+void dtox(FILE* f, int a, int size)
 {
     //printf("%d\n", a);
-    fputc(a % 256, f);
-    fputc(a / 256 % 256, f);
-    fputc(a / 256 / 256 % 256, f);
-    fputc(a / 256 / 256 / 256 % 256, f);
+    for (int i = 0; i < size; i++)
+    {
+        fputc(a % 256, f);
+        a /= 256;
+    }
+//    fputc(a % 256, f);
+//    fputc(a / 256 % 256, f);
+//    fputc(a / 256 / 256 % 256, f);
+//    fputc(a / 256 / 256 / 256 % 256, f);
 }
 
 void arrayInverse(pixel **array, int height, int width)
@@ -110,7 +115,7 @@ void saveBMP(pixel **array, int height, int width, char* fileName)
     while ((width*3*CONFIG.outputScale + offset)%4 !=0) offset++;
 
     //File Size
-    dtox(f, 56 + (int) (sizeof(int ) * height * (width + offset)* CONFIG.outputScale * CONFIG.outputScale));
+    dtox(f, 56 + (int) (sizeof(int ) * height * (width + offset)* CONFIG.outputScale * CONFIG.outputScale), 4);
 
     //res1 & res2
     fputc(0, f);
@@ -119,16 +124,16 @@ void saveBMP(pixel **array, int height, int width, char* fileName)
     fputc(0, f);
 
     //Offset Bits
-    dtox(f, 54);
+    dtox(f, 54, 4);
 
     //Header Size
-    dtox(f,40);
+    dtox(f,40, 4);
 
     //Width
-    dtox(f, width*CONFIG.outputScale);
+    dtox(f, width*CONFIG.outputScale, 4);
 
     //Height
-    dtox(f, height*CONFIG.outputScale);
+    dtox(f, height*CONFIG.outputScale, 4);
 
     //Planes
     fputc(1, f);
@@ -145,7 +150,7 @@ void saveBMP(pixel **array, int height, int width, char* fileName)
     fputc(0, f);
 
     //Image Size
-    dtox(f, (width)*height*CONFIG.outputScale * CONFIG.outputScale);
+    dtox(f, (width)*height*CONFIG.outputScale * CONFIG.outputScale, 4);
 
     //PPM
     fputc(195, f);

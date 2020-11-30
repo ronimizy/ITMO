@@ -24,6 +24,7 @@ struct lifeGameConfig
     int oSchemeSet;
 
     int fade;
+    int gif;
 
     int inputScale;
     int outputScale;
@@ -41,6 +42,7 @@ void Default()
     CONFIG.outputScheme = Dark();
     CONFIG.oSchemeSet = 0;
     CONFIG.fade = 0;
+    CONFIG.gif = 0;
     CONFIG.inputScale = 1;
     CONFIG.outputScale = 1;
 }

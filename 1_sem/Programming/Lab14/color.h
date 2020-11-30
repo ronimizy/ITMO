@@ -14,6 +14,28 @@ struct rgb_pixel
     int red;
 };
 
+pixel** scale(pixel** in, int scale, int h, int w)
+{
+    pixel** r = calloc(h*scale, sizeof(pixel*));
+    for (int i = 0; i < h*scale; i++) r[i] = calloc(w*scale, sizeof(pixel));
+
+    for (int height = 0; height < h; height++)
+    {
+        for (int sH = 0; sH < scale; sH++)
+        {
+            for (int width = 0; width < w; width++)
+            {
+                for (int sW = 0; sW < scale; sW++)
+                {
+                    r[height+sH][width+sW] = in[height][width];
+                }
+            }
+        }
+    }
+
+    return r;
+}
+
 pixel Black()
 {
     pixel p;
