@@ -1,0 +1,6 @@
+.DS_Store
+cmake-build-debug/
+!*.in
+.idea/
+CMakeLists.txt
+venv/
