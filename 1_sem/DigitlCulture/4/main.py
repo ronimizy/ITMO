@@ -47,7 +47,7 @@ def resize_char_to_capital(str1, idx):    # изменить строчную б
 
 text_file = open("input_text.txt", "r", encoding="MacCyrillic")
 dict_file = open("dict1.txt", "r", encoding="MacCyrillic")
-fout = open("corrected_text.txt", "w")
+fout = open("corrected_text.txt", "w", encoding="MacCyrillic")
 text = text_file.read()
 text_copy = text
 text = text.replace(".", "")
@@ -194,9 +194,9 @@ for string in text_copy_list:                # обработка каждой �
             final_word = ''
             for i in range(len(corrected_words_1[word])):
                 if i == 0:
-                    final_word = corrected_words_1[word][i] + ' '
+                    final_word = str(corrected_words_1[word][i]) + ' '
                 else:
-                    final_word = final_word + corrected_words_1[word][i]
+                    final_word = str(final_word) + str(corrected_words_1[word][i])
             for ch in dict_ch.keys():
                 if ch != 'Upper':
                     for pos in dict_ch[ch]:
