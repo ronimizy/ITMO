@@ -5,7 +5,7 @@
 #ifndef LAB14_COLOR_H
 #define LAB14_COLOR_H
 
-typedef struct rgb_pixel pixel;
+typedef struct rgb_pixel PIXEL;
 
 struct rgb_pixel
 {
@@ -14,10 +14,10 @@ struct rgb_pixel
     int red;
 };
 
-pixel** scale(pixel** in, int scale, int h, int w)
+PIXEL** scale(PIXEL** in, int scale, int h, int w)
 {
-    pixel** r = calloc(h*scale, sizeof(pixel*));
-    for (int i = 0; i < h*scale; i++) r[i] = calloc(w*scale, sizeof(pixel));
+    PIXEL** r = calloc(h * scale, sizeof(PIXEL*));
+    for (int i = 0; i < h*scale; i++) r[i] = calloc(w*scale, sizeof(PIXEL));
 
     for (int height = 0; height < h; height++)
     {
@@ -36,9 +36,9 @@ pixel** scale(pixel** in, int scale, int h, int w)
     return r;
 }
 
-pixel Black()
+PIXEL Black()
 {
-    pixel p;
+    PIXEL p;
     p.red = 0;
     p.green = 0;
     p.blue = 0;
@@ -46,9 +46,9 @@ pixel Black()
     return p;
 }
 
-pixel White()
+PIXEL White()
 {
-    pixel p;
+    PIXEL p;
     p.red = 255;
     p.green = 255;
     p.blue = 255;
@@ -60,8 +60,8 @@ typedef struct lifeGameColorScheme scheme;
 
 struct lifeGameColorScheme
 {
-    pixel dead;
-    pixel alive;
+    PIXEL dead;
+    PIXEL alive;
 };
 
 scheme Light()

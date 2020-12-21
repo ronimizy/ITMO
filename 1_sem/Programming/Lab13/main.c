@@ -111,7 +111,7 @@ void set(char *fileName, char *name, char *value)
     long long end = ftell(song);
     fseek(song, cur - end, SEEK_END);
 
-    int *residue = malloc(byte * (end - cur) + byte);
+    char *residue = malloc(byte * (end - cur) + byte);
     fread(residue, byte, end - cur, song);
     residue[end - cur] = '\0';
     fwrite(residue, byte, end - cur, buffer);

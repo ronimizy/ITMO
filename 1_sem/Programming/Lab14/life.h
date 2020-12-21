@@ -9,44 +9,61 @@
 #include <stdio.h>
 #include "bmp.h"
 #include "config.h"
+#include "Expansion.h"
 
-typedef struct lifeGameField field;
-
-int isDead(pixel *p)
-{
+int isDead(PIXEL *p) {
     return p->blue == CONFIG.inputScheme.dead.blue
-            && p->green == CONFIG.inputScheme.dead.green
-            && p->red == CONFIG.inputScheme.dead.red;
+           && p->green == CONFIG.inputScheme.dead.green
+           && p->red == CONFIG.inputScheme.dead.red;
 }
 
-void mix(pixel *a, pixel *b, int* counter)
-{
-    if (CONFIG.fade)
-    {
+void mix(PIXEL *a, PIXEL *b, int *counter) {
+    ++*counter;
+    if (a == 0)
+        return;
+
+    if (CONFIG.fade) {
         a->blue = (a->blue + b->blue) / 2;
         a->green = (a->green + b->green) / 2;
         a->red = (a->red + b->red) / 2;
     }
-    ++*counter;
 }
 
-struct lifeGameField
-{
-    int width;
+typedef struct {
     int height;
+    int width;
 
-    pixel **current;
+    PIXEL **array;
+} FRAME;
+
+FRAME *newFrame(int height, int width) {
+    FRAME *frame = malloc(sizeof(FRAME));
+
+    frame->height = height;
+    frame->width = width;
+
+    frame->array = calloc(height, sizeof(PIXEL *));
+
+    for (int i = 0; i < height; i++)
+        frame->array[i] = calloc(width, sizeof(PIXEL));
+
+    return frame;
+}
+
+typedef struct {
+    FRAME *current;
 
     int ages;
-    pixel ***history;
-};
+    FRAME **history;
+} FIELD;
 
-field *LifeGame(int height, int width, pixel **array)
-{
-    field *game = (field *) malloc(sizeof(field));
-    game->width = width;
-    game->height = height;
-    game->current = array;
+FIELD *LifeGame(int height, int width, PIXEL **array) {
+    FIELD *game = malloc(sizeof(FIELD));
+    game->current = malloc(sizeof(FRAME));
+
+    game->current->height = height;
+    game->current->width = width;
+    game->current->array = array;
 
     game->ages = 0;
     game->history = malloc(0);
@@ -54,93 +71,138 @@ field *LifeGame(int height, int width, pixel **array)
     return game;
 }
 
-int livingRelatives(pixel **f, int i, int j, int height, int width, pixel *color)
-{
+int withinRange(int i, int j, int height, int width) {
+    return i >= 0 && i < height && j >= 0 && j < width;
+}
+
+int livingRelatives(PIXEL **f, int i, int j, int height, int width, PIXEL *color) {
     int a = 0;
 
-    pixel *current = color;
+    PIXEL *current = color;
 
-    pixel *tl = &f[(i - 1 + height) % height][(j - 1 + width) % width];
-    pixel *t = &f[(i - 1 + height) % height][j];
-    pixel *tr = &f[(i - 1 + height) % height][(j + 1 + width) % width];
+    PIXEL *tl = withinRange(i - 1, j - 1, height, width)
+                ? &f[i - 1][j - 1] : 0;
+    PIXEL *t = withinRange(i - 1, j, height, width)
+               ? &f[(i - 1 + height) % height][j] : 0;
+    PIXEL *tr = withinRange(i - 1, j + 1, height, width)
+                ? &f[(i - 1 + height) % height][(j + 1 + width) % width] : 0;
 
-    pixel *l = &f[i][(j - 1 + width) % width];
-    pixel *r = &f[i][(j + 1 + width) % width];
+    PIXEL *l = withinRange(i, j - 1, height, width)
+               ? &f[i][(j - 1 + width) % width] : 0;
+    PIXEL *r = withinRange(i, j + 1, height, width)
+               ? &f[i][(j + 1 + width) % width] : 0;
 
-    pixel *bl = &f[(i + 1 + height) % height][(j - 1 + width) % width];
-    pixel *b = &f[(i + 1 + height) % height][j];
-    pixel *br = &f[(i + 1 + height) % height][(j + 1 + width) % width];
+    PIXEL *bl = withinRange(i + 1, j - 1, height, width)
+                ? &f[(i + 1 + height) % height][(j - 1 + width) % width] : 0;
+    PIXEL *b = withinRange(i + 1, j, height, width)
+               ? &f[(i + 1 + height) % height][j] : 0;
+    PIXEL *br = withinRange(i + 1, j + 1, height, width)
+                ? &f[(i + 1 + height) % height][(j + 1 + width) % width] : 0;
 
-    if (!isDead(tl)) mix(current, tl, &a);
-    if (!isDead(t)) mix(current, t, &a);
-    if (!isDead(tr)) mix(current, tr, &a);
+    if (tl != 0 && !isDead(tl)) mix(current, tl, &a);
+    if (t != 0 && !isDead(t)) mix(current, t, &a);
+    if (tr != 0 && !isDead(tr)) mix(current, tr, &a);
 
-    if (!isDead(l)) mix(current, l, &a);
-    if (!isDead(r)) mix(current, r, &a);
+    if (l != 0 && !isDead(l)) mix(current, l, &a);
+    if (r != 0 && !isDead(r)) mix(current, r, &a);
 
-    if (!isDead(bl)) mix(current, bl, &a);
-    if (!isDead(b)) mix(current, b, &a);
-    if (!isDead(br)) mix(current, br, &a);
+    if (bl != 0 && !isDead(bl)) mix(current, bl, &a);
+    if (b != 0 && !isDead(b)) mix(current, b, &a);
+    if (br != 0 && !isDead(br)) mix(current, br, &a);
 
     return a;
 }
 
-int compareGenerations(field *f)
-{
-    for (int age = 0; age < f->ages; age++)
-    {
+int compareGenerations(FIELD *f) {
+    for (int age = 0; age < f->ages; age++) {
         int a = 0;
-        for (int i = 0; i < f->height; ++i)
-        {
-            for (int j = 0; j < f->width; ++j)
-            {
-                if (isDead(&(f->history[age][i][j])) == isDead(&(f->current[i][j]))) a++;
+        if (f->history[age]->height != f->current->height || f->history[age]->width != f->current->width)
+            continue;
+        for (int i = 0; i < f->current->height; ++i) {
+            for (int j = 0; j < f->current->width; ++j) {
+                if (isDead(&(f->history[age]->array[i][j])) == isDead(&(f->current->array[i][j]))) a++;
             }
         }
-        if (a == (f->width) * (f->height)) return 1;
+        if (a == (f->current->width) * (f->current->height)) return 1;
     }
 
     return 0;
 }
 
-void addToHistory(field *f)
-{
-    f->history = realloc(f->history, sizeof(pixel **) * (f->ages + 1));
+void addToHistory(FIELD *f) {
+    f->history = realloc(f->history, sizeof(FRAME *) * (f->ages + 1));
 
     f->history[f->ages++] = f->current;
 
-    f->current = malloc(sizeof(pixel *) * f->height);
-    for (int i = 0; i < f->height; i++) f->current[i] = malloc(sizeof(pixel) * f->width);
+    f->current = newFrame(f->current->height, f->current->width);
 }
 
-int ageCycle(field *f)
-{
+int ageCycle(FIELD *f) {
     addToHistory(f);
 
     int living = 0;
 
-    for (int i = 0; i < f->height; i++)
-    {
-        for (int j = 0; j < f->width; j++)
-        {
-            pixel **generation = f->history[f->ages - 1];
+    int offsetI = 0;
+    int offsetJ = 0;
 
-            pixel *genCell = &generation[i][j];
-            pixel *curCell = &f->current[i][j];
+    PIXEL **generation = f->history[f->ages - 1]->array;
 
-            pixel color = *genCell;
+    for (int i = -1; i <= f->history[f->ages - 1]->height; i++) {
 
-            int relatives = livingRelatives(generation, i, j, f->height, f->width, &color);
+        for (int j = -1; j <= f->history[f->ages - 1]->width; j++) {
 
-            if (isDead(genCell) && relatives == 3)
-            {
+            PIXEL *genCell = &generation[i][j];
+            PIXEL *curCell = &f->current->array[i + offsetI][j + offsetJ];
+
+            PIXEL color = (i > -1 && i < f->history[f->ages - 1]->height
+                    && j > -1 && j < f->history[f->ages - 1]->width)
+                          ? *genCell : CONFIG.inputScheme.alive;
+
+            int relatives = livingRelatives(generation, i, j,
+                                            f->history[f->ages - 1]->height,
+                                            f->history[f->ages - 1]->width,
+                                            &color);
+
+            if (!withinRange(i, j, f->history[f->ages - 1]->height, f->history[f->ages - 1]->width)) {
+                if (relatives == 3) {
+                    if (i == -1 || i == f->history[f->ages - 1]->height) {
+                        f->current->array = (PIXEL **) expand((void **) f->current-> array,
+                                                              &f->current->height,
+                                                              &f->current->width,
+                                                              sizeof(PIXEL ),
+                                                              i == -1 ? top : bottom,
+                                                              &CONFIG.inputScheme.dead);
+
+                        offsetI += i == -1 ? 1 : 0;
+                    }
+                    if (j == -1 || j == f->history[f->ages - 1]->width) {
+                        f->current->array = (PIXEL **) expand((void **) f->current->array,
+                                                              &f->current->height,
+                                                              &f->current->width,
+                                                              sizeof(PIXEL ),
+                                                              j == -1 ? leading : trailing,
+                                                              &CONFIG.inputScheme.dead);
+
+                        offsetJ += j == -1 ? 1 : 0;
+                    }
+
+                    f->current->array[i + offsetI][j + offsetJ] = CONFIG.fade ? color : CONFIG.inputScheme.alive;
+                }
+
+                continue;
+            }
+
+
+
+            if (isDead(genCell) && relatives == 3) {
                 *curCell = CONFIG.fade ? color : CONFIG.inputScheme.alive;
                 living++;
-            } else if (isDead(genCell)) *curCell = CONFIG.inputScheme.dead;
+            } else if (isDead(genCell))
+                *curCell = CONFIG.inputScheme.dead;
 
-            if (!isDead(genCell) && (relatives < 2 || relatives > 3)) *curCell = CONFIG.inputScheme.dead;
-            else if (!isDead(genCell))
-            {
+            if (!isDead(genCell) && (relatives < 2 || relatives > 3))
+                *curCell = CONFIG.inputScheme.dead;
+            else if (!isDead(genCell)) {
                 living++;
                 *curCell = color;
             }
@@ -152,31 +214,36 @@ int ageCycle(field *f)
     return 0;
 }
 
-void game(field *f)
-{
+void game(FIELD *f) {
     int result = ageCycle(f);
     int cycles = 1;
 
     char *fileName = makePath(CONFIG.outputDirectory, cycles, ".bmp\0");
 
-    if (cycles % CONFIG.freq == 0) saveBMP(f->history[f->ages - 1], f->height, f->width, fileName);
+    if (cycles % CONFIG.freq == 0)
+        saveBMP(f->history[f->ages - 1]->array,
+                f->history[f->ages - 1]->height,
+                f->history[f->ages - 1]->width,
+                fileName);
 
-    while (result == 0 && (CONFIG.maxIter == -1 || cycles < CONFIG.maxIter))
-    {
+    while (result == 0 && (CONFIG.maxIter == -1 || cycles < CONFIG.maxIter)) {
         result = ageCycle(f);
         cycles++;
-        if (cycles % CONFIG.freq == 0)
-        {
+        if (cycles % CONFIG.freq == 0) {
             free(fileName);
             fileName = makePath(CONFIG.outputDirectory, cycles, ".bmp\0");
 
-            saveBMP(f->history[f->ages - 1], f->height, f->width, fileName);
+            saveBMP(f->history[f->ages - 1]->array,
+                    f->history[f->ages - 1]->height,
+                    f->history[f->ages - 1]->width,
+                    fileName);
         }
     }
 
     printf("\n-----------------------------------------------------\n");
     printf("The game has ended with %d generations\n", cycles);
-    printf(cycles == CONFIG.maxIter ? "Maximum cycles amount reached" : result == 1 ? "No living cells left" : "The game repeated itself");
+    printf(cycles == CONFIG.maxIter ? "Maximum cycles amount reached" : result == 1 ? "No living cells left"
+                                                                                    : "The game repeated itself");
     printf("\n-----------------------------------------------------\n");
 
     free(fileName);

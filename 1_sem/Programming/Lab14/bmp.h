@@ -24,7 +24,7 @@ int numCount(int a)
     return c;
 }
 
-int equal(pixel *a, pixel *b)
+int equal(PIXEL *a, PIXEL *b)
 {
     return a->red == b->red
            && a->green == b->green
@@ -63,10 +63,9 @@ void dtox(FILE* f, int a, int size)
 //    fputc(a / 256 / 256 / 256 % 256, f);
 }
 
-void arrayInverse(pixel **array, int height, int width)
+void arrayInverse(PIXEL **array, int height)
 {
-    pixel **n = malloc(sizeof(pixel*)*height);
-    for (int i = 0; i < height; i++) n[i] = malloc(sizeof(pixel)*width);
+    PIXEL **n = malloc(sizeof(PIXEL*) * height);
 
     for (int i = 0; i < height; i++)
     {
@@ -80,18 +79,26 @@ void arrayInverse(pixel **array, int height, int width)
     free(n);
 }
 
-void putcolor(FILE *f, pixel *a)
+void putcolor(FILE *f, PIXEL *a)
 {
     fputc(a->blue % 256, f);
     fputc(a->green % 256, f);
     fputc(a->red % 256, f);
 }
 
-void getColor(FILE *f, pixel* a)
+void getColor(FILE *f, PIXEL* a)
 {
-    a->blue = fgetc(f) % 256;
-    a->green = fgetc(f) % 256;
-    a->red = fgetc(f) % 256;
+    a->blue = (int) fgetc(f) % 256;
+    if (a->blue < 0)
+        a->blue = 256 + a->blue;
+
+    a->green = (int) fgetc(f) % 256;
+    if (a->green < 0)
+        a->green = 256 + a->green;
+
+    a->red = (int) fgetc(f) % 256;
+    if (a->red < 0)
+        a->red = 256 + a->red;
 }
 
 void xtod(FILE* f, int* a)
@@ -103,7 +110,7 @@ void xtod(FILE* f, int* a)
     *a += fgetc(f) * 256 * 256 * 256;
 }
 
-void saveBMP(pixel **array, int height, int width, char* fileName)
+void saveBMP(PIXEL **array, int height, int width, char* fileName)
 {
     FILE *f = fopen(fileName, "wb");
 
@@ -175,7 +182,7 @@ void saveBMP(pixel **array, int height, int width, char* fileName)
     fputc(0, f);
     fputc(0, f);
 
-    arrayInverse(array, width, height);
+    arrayInverse(array, height);
 
     for (int i = 0; i < height; i++)
     {
@@ -206,7 +213,7 @@ void saveBMP(pixel **array, int height, int width, char* fileName)
     fclose(f);
 }
 
-pixel** openBMP(int* height, int* width)
+PIXEL** openBMP(int* height, int* width)
 {
     FILE *f = fopen(CONFIG.inputFile, "rb");
 
@@ -222,8 +229,8 @@ pixel** openBMP(int* height, int* width)
     xtod(f, height);
     *height /= CONFIG.inputScale;
 
-    pixel **array = malloc(sizeof(pixel *) * (*height));
-    for (int i = 0; i < *height; i++) array[i] = malloc(sizeof(pixel)*(*width));
+    PIXEL **array = malloc(sizeof(PIXEL *) * (*height));
+    for (int i = 0; i < *height; i++) array[i] = malloc(sizeof(PIXEL) * (*width));
 
     int offset = 0;
     while ((*width*3*CONFIG.inputScale + offset)%4 !=0) offset++;
@@ -240,7 +247,7 @@ pixel** openBMP(int* height, int* width)
         fseek(f, (3*(*width)*CONFIG.inputScale + offset)*(CONFIG.inputScale - 1), SEEK_CUR);
     }
 
-    arrayInverse(array, (*width), (*height));
+    arrayInverse(array, (*height));
 
 
     return array;

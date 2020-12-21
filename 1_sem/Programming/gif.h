@@ -21,9 +21,9 @@ int* rlcOne(int* before, long oldSize, long newSize)
     return n;
 }
 
-pixel* rlcOnePxl(pixel * before, int oldSize, int newSize)
+PIXEL* rlcOnePxl(PIXEL * before, int oldSize, int newSize)
 {
-    pixel * n = calloc(newSize, sizeof(int));
+    PIXEL * n = calloc(newSize, sizeof(int));
     for (int i = 0; i < oldSize; i++) n[i] = before[i];
 
     free(before);
@@ -45,7 +45,7 @@ int** rlcTwo(int** b, int oO, int* oT, int nO, int* nT)
     return r;
 }
 
-void makeGIF(field *f)
+void makeGIF(FIELD *f)
 {
     char* path = makePath(CONFIG.outputDirectory, f->ages, ".gif\0");
     FILE *gif = fopen(path, "wb");
@@ -53,12 +53,13 @@ void makeGIF(field *f)
     int colorCount = 0;
 
     //Создание масштабированного набора изображний
-    pixel ***scaled = calloc(f->ages, sizeof(pixel**));
+    PIXEL ***scaled = calloc(f->ages, sizeof(PIXEL**));
         //Масштабирование изображения каждого поколения
-    for (int i = 0; i < f->ages; i++) scaled[i] = scale(f->history[i], CONFIG.outputScale, f->height, f->width);
+    for (int i = 0; i < f->ages; i++)
+        scaled[i] = scale(f->history[i]->array, CONFIG.outputScale, f->history[i]->height, f->history[i]->width);
 
     //Создание таблицы цветов
-    pixel *colorTable = calloc(0, 0);
+    PIXEL *colorTable = calloc(0, 0);
 
     //Создание набора изображений с кодами цветов вместо самих цветов
     int ***coded = calloc(f->ages, sizeof(int**));
@@ -176,8 +177,8 @@ void makeGIF(field *f)
         dtox(gif, 0, 2);
         dtox(gif, 0, 2);
 
-        dtox(gif, CONFIG.outputScale*f->width, 2);
-        dtox(gif, CONFIG.outputScale*f->height, 2);
+        dtox(gif, CONFIG.outputScale*f->history[age]->width, 2);
+        dtox(gif, CONFIG.outputScale*f->history[age]->height, 2);
 
         dtox(gif, 0, 1);
 
