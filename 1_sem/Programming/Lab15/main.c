@@ -143,7 +143,7 @@ void createArc(ULL fileCount, UC **fileNames, UC *outputName) {
         archive.fileNamesSizes[i] = dtoxc(strlen((char *) archive.fileNames[i]));
 
         ULL size = filesize(fileNames[i]);
-        archive.files[i] = encode(getContentsOfFile(fileNames[i], size), &size);
+        archive.files[i] = getContentsOfFile(fileNames[i], size);
         archive.filesSizes[i] = dtoxc(size);
     }
 
@@ -174,9 +174,13 @@ void createArc(ULL fileCount, UC **fileNames, UC *outputName) {
 
     //Очистка памяти
     freeARC(&archive);
+
+    encode(outputName);
 }
 
 void unpackArc(UC *inputName, UC *outputDirectory) {
+    decode(inputName);
+
     //Создание и подготовка контейнера
     ARC archive;
 
@@ -248,7 +252,7 @@ void unpackArc(UC *inputName, UC *outputDirectory) {
 
         ULL size = xctod(archive.filesSizes[i]);
 
-        fwrite(decode(archive.files[i], &size), sizeof(UC), size, f);
+        fwrite(archive.files[i], sizeof(UC), size, f);
         fclose(f);
     }
 
@@ -256,6 +260,8 @@ void unpackArc(UC *inputName, UC *outputDirectory) {
 
     //Очистка памяти
     freeARC(&archive);
+
+    encode(inputName);
 }
 
 void arcList(UC *inputName) {
@@ -310,13 +316,15 @@ int main(int argc, char **argv) {
 #define debugE
 
 #ifdef debugC
-    argc = 7;
+    argc = 9;
     argv[1] = "--file";
     argv[2] = "hive.arc";
     argv[3] = "--create";
     argv[4] = "1.bmp";
     argv[5] = "2.bmp";
     argv[6] = "3.bmp";
+    argv[7] = "HW_2.docx";
+    argv[8] = "abc.txt";
 #endif
 
 #ifdef debugCS
@@ -348,6 +356,25 @@ int main(int argc, char **argv) {
     UC *outputName = 0;
 
     ULL fileCount = 0;
+
+//    UC a[] = "a/1.bmp\0";
+//
+//    encode((UC *) &a);
+//    decode((UC *) &a);
+
+//    UC* test = malloc(3 * sizeof(UC));
+//    test[0] = '5';
+//    test[1] = '1';
+//    test[2] = '5';
+//    ULL size = 3;
+//    printf("%d\n", size);
+//    test = encode(test, &size);
+//    printf("%d\n", size);
+//    UC *nText = decode(test, &size);
+//    printf("%d\n", size);
+//    printf("%d\n", test[0]);
+//    printf("%d\n", test[1]);
+//    printf("%d\n", test[2]);
 
     for (int i = 1; i < argc; i++) {
         if (strcmp("--file", argv[i]) == 0) {

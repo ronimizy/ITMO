@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "life.h"
 
-#define debugE
+#define debugC
 
 int main(int argc, char **argv) {
 #ifdef debug20
@@ -23,9 +23,9 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef debugC
-    argc = 16;
+    argc = 15;
     argv[1] = "--input";
-    argv[2] = "pulsar_color.bmp";
+    argv[2] = "pulsar.bmp";
     argv[3] = "--output";
     argv[4] = "color/";
     argv[5] = "--max_iter";
@@ -33,12 +33,11 @@ int main(int argc, char **argv) {
     argv[7] = "--dump_freq";
     argv[8] = "1";
     argv[9] = "--output_scheme";
-    argv[10] = "dark";
+    argv[10] = "light";
     argv[11] = "--output_scale";
     argv[12] = "1";
     argv[13] = "--input_scale";
     argv[14] = "1";
-    argv[15] = "--fade";
 #endif
 
 #ifdef debugE
