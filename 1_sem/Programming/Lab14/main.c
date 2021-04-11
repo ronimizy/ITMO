@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "life.h"
 
-#define debugC
+#define debugE
 
 int main(int argc, char **argv) {
 #ifdef debug20

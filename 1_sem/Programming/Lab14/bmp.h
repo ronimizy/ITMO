@@ -49,7 +49,7 @@ char* makePath(char* directory, int order, char* extention)
     return path;
 }
 
-void intTo16(FILE* f, int a, int size)
+void dtox(FILE* f, int a, int size)
 {
     //printf("%d\n", a);
     for (int i = 0; i < size; i++)
@@ -101,7 +101,7 @@ void getColor(FILE *f, PIXEL* a)
         a->red = 256 + a->red;
 }
 
-void intFrom16(FILE* f, int* a)
+void xtod(FILE* f, int* a)
 {
     *a = 0;
     *a += fgetc(f);
