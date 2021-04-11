@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <stack>
 
 struct Node {
     enum Color {
@@ -11,14 +11,17 @@ struct Node {
     Color color = white;
 };
 
-std::queue<size_t> path;
+std::stack<size_t> path;
 
 void visit(std::vector<Node> &graph, size_t &index) {
     graph[index].color = Node::gray;
 
-    for (size_t i = 0; i < graph[index].connected.size(); ++i) {
+    for (auto &i : graph[index].connected) {
         if (graph[i].color == Node::white) {
             visit(graph, i);
+        } else if (graph[i].color == Node::gray) {
+            std::cout << "-1";
+            exit(0);
         }
     }
 
@@ -31,6 +34,7 @@ void dfs(std::vector<Node> &graph) {
         n.color = Node::white;
     }
 
+
     for (size_t i = 0; i < graph.size(); i++) {
         if (graph[i].color == Node::white) {
             visit(graph, i);
@@ -39,6 +43,32 @@ void dfs(std::vector<Node> &graph) {
 };
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::freopen("topsort.in", "r", stdin);
+    std::freopen("topsort.out", "w", stdout);
+
+    size_t n, m;
+    std::cin >> n >> m;
+
+    std::vector<Node> graph(n);
+
+    for (size_t i = 0; i < m; ++i) {
+        size_t x, y;
+        std::cin >> x >> y;
+        --x; --y;
+
+        graph[x].connected.push_back(y);
+    }
+
+    dfs(graph);
+
+    if (path.empty()) {
+        std::cout << "-1";
+    } else {
+        while (!path.empty()) {
+            std::cout << path.top() + 1 << ' ';
+            path.pop();
+        }
+    }
+
     return 0;
 }
