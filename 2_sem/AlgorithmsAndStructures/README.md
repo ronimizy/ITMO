@@ -1,0 +1,50 @@
+# Алгоритмы и структуры данных (Семестр 2)
+
+
+- [8 Лаба](/2_sem/AlgorithmsAndStructures/Lab8)
+    - [От списка рёбер к матрице смежности](/2_sem/AlgorithmsAndStructures/Lab8/A/A/main.cpp)
+    - [Проверка на неориентированность](/2_sem/AlgorithmsAndStructures/Lab8/B/B/main.cpp)
+    - [Проверка на наличие параллельных рёбер](/2_sem/AlgorithmsAndStructures/Lab8/C/C/main.cpp)
+    - [Компоненты связности](/2_sem/AlgorithmsAndStructures/Lab8/D/D/main.cpp)
+    - [Кратчайший путь в невзвешенном графе](/2_sem/AlgorithmsAndStructures/Lab8/E/E/main.cpp)
+    - [Лабиринт](/2_sem/AlgorithmsAndStructures/Lab8/F/F/main.cpp)
+    
+- [9 Лаба](/2_sem/AlgorithmsAndStructures/Lab9)
+    - [Топологическая сортировка](/2_sem/AlgorithmsAndStructures/Lab9/TopSort/main.cpp)
+    - [Поиск цикла](/2_sem/AlgorithmsAndStructures/Lab9/Cycle/main.cpp)
+    - [Двудольный граф](/2_sem/AlgorithmsAndStructures/Lab9/BiPartite/main.cpp)
+    - [Конденсация графа](/2_sem/AlgorithmsAndStructures/Lab9/Cond/main.cpp)
+    - [Гамильтонов путь](/2_sem/AlgorithmsAndStructures/Lab9/Hamiltonian/main.cpp)
+    - [Игра](/2_sem/AlgorithmsAndStructures/Lab9/Game/main.cpp)
+    
+- [10 Лаба](/2_sem/AlgorithmsAndStructures/Lab10)
+    - [Степени вершин](/2_sem/AlgorithmsAndStructures/Lab10/Degree/main.cpp)
+    - [Остовное дерево](/2_sem/AlgorithmsAndStructures/Lab10/SpanTree/main.cpp)
+    - [Остовное дерево 3](/2_sem/AlgorithmsAndStructures/Lab10/SpanTree3/main.cpp)
+    - [Алгоритм двух китайцев](/2_sem/AlgorithmsAndStructures/Lab10/Chinese/main.cpp)
+    
+- [11 Лаба](/2_sem/AlgorithmsAndStructures/Lab11)
+    - [Кратчайший путь one-to-one](/2_sem/AlgorithmsAndStructures/Lab11/A/main.cpp)
+    - [Кратчайший путь many-to-many](/2_sem/AlgorithmsAndStructures/Lab11/B/main.cpp)
+    - [Кратчайший путь one-to-many](/2_sem/AlgorithmsAndStructures/Lab11/C/main.cpp)
+    - [Кратчайшие пути и прочее](/2_sem/AlgorithmsAndStructures/Lab11/D/main.cpp)
+    - [Цикл отрицательного веса](/2_sem/AlgorithmsAndStructures/Lab11/E/main.cpp)
+    
+- [12 Лаба (Динамическое Программирование)](/2_sem/AlgorithmsAndStructures/Lab12)
+    - [Наибольшая возрастающая подпоследовательность](/2_sem/AlgorithmsAndStructures/Lab12/A/main.cpp)
+    - [Наибольшая возрастающая подпоследовательность 2](/2_sem/AlgorithmsAndStructures/Lab12/B/main.cpp)
+    - [Общая подпоследовательность](/2_sem/AlgorithmsAndStructures/Lab12/C/main.cpp)
+    - [Ход конём](/2_sem/AlgorithmsAndStructures/Lab12/D/main.cpp)
+    - [Выбор вершин дерева](/2_sem/AlgorithmsAndStructures/Lab12/E/main.cpp)
+    - [Дерево (сумма)](/2_sem/AlgorithmsAndStructures/Lab12/F/main.cpp)
+    - [Рюкзак](/2_sem/AlgorithmsAndStructures/Lab12/G/main.cpp)
+    - [Футболки](/2_sem/AlgorithmsAndStructures/Lab12/H/main.cpp)
+    
+- [13 Лаба](/2_sem/AlgorithmsAndStructures/Lab13)
+    - [Наивный поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L70)
+    - [Быстрый поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L70)
+    - [Префикс функция](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L71)
+    - [Автомат Кнута-Морриса-Пратта](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L72)
+    - [Множественный поиск](/2_sem/AlgorithmsAndStructures/Lab13/Search4/main.cpp)
+    
+    

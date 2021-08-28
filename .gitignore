@@ -5,3 +5,5 @@ cmake-build-debug/
 CMakeLists.txt
 venv/
 Playground/
+/2_sem/LinearAlgebra/
+/2_sem/Physics/
