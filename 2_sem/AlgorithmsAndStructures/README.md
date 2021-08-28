@@ -41,10 +41,10 @@
     - [Футболки](/2_sem/AlgorithmsAndStructures/Lab12/H/main.cpp)
     
 - [13 Лаба](/2_sem/AlgorithmsAndStructures/Lab13)
-    - [Наивный поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L70)
-    - [Быстрый поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L70)
-    - [Префикс функция](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L71)
-    - [Автомат Кнута-Морриса-Пратта](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp#L72)
+    - [Наивный поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp)
+    - [Быстрый поиск подстроки в строке](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp)
+    - [Префикс функция](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp)
+    - [Автомат Кнута-Морриса-Пратта](/2_sem/AlgorithmsAndStructures/Lab13/Search1/main.cpp)
     - [Множественный поиск](/2_sem/AlgorithmsAndStructures/Lab13/Search4/main.cpp)
     
     
