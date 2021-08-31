@@ -1,46 +1,0 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset = "UTF-8">
-	<title>Описание программы</title>
-	<style>
-		table { 
-			border-collapse: collapse; 
-		}	</style>
-</head>
-<body><table align = "center" bgcolor="#d6d6d6" border = "1" cellpadding = "2" cellspacing = "0" width = "0%">
-		<tr align="left" bgcolor="silver" >			<th>Номер</th>			<th>Код</th>			<th>Мнемоника</th>			<th>Описание</th>		</tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>000</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>001</td><td>E101</td><td>TSF 1</td><td>IF ВУ-1 == 1 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>002</td><td>C004</td><td>BR  004</td><td>004 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>003</td><td>C00A</td><td>BR  00A</td><td>00A –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>004</td><td>E102</td><td>TSF 2</td><td>IF ВУ-2 == 1 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>005</td><td>C018</td><td>BR  018</td><td>018 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>006</td><td>F700</td><td>ROR</td><td>[A] >> 1; A(0) –> C; [C] –> A(15)</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>007</td><td>401D</td><td>ADD  01D</td><td>[A] + [01D] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>008</td><td>E303</td><td>OUT 3</td><td>[A] –> [ВУ-3]</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>009</td><td>C015</td><td>BR  015</td><td>015 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00A</td><td>4014</td><td>ADD  014</td><td>[A] + [014] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00B</td><td>4014</td><td>ADD  014</td><td>[A] + [014] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00C</td><td>4014</td><td>ADD  014</td><td>[A] + [014] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00D</td><td>4014</td><td>ADD  014</td><td>[A] + [014] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00E</td><td>F700</td><td>ROR</td><td>[A] >> 1; A(0) –> C; [C] –> A(15)</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00F</td><td>F400</td><td>CMA</td><td>~[A] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>010</td><td>F800</td><td>INC</td><td>[A] + 1 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>011</td><td>E303</td><td>OUT 3</td><td>[A] –> [ВУ-3]</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>012</td><td>C015</td><td>BR  015</td><td>015 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>013</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>014</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>015</td><td>FA00</td><td>EI</td><td>1 –> РС(4)</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>016</td><td>F200</td><td>CLA</td><td>0 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>017</td><td>4014</td><td>ADD  014</td><td>[A] + [014] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>018</td><td>F800</td><td>INC</td><td>[A] + 1 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>019</td><td>3014</td><td>MOV  014</td><td>[A] –> 014</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01A</td><td>C018</td><td>BR  018</td><td>018 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01B</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01C</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01D</td><td>0005</td><td>ISZ  005</td><td>[005] + 1 –> 005; IF [005] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01E</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>7FF</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 000; IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr></table>
-</body>
-</html>

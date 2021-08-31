@@ -1,59 +1,0 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset = "UTF-8">
-	<title>Описание программы</title>
-	<style>
-		table { 
-			border-collapse: collapse; 
-		}	</style>
-</head>
-<body><table align = "center" bgcolor="#d6d6d6" border = "1" cellpadding = "2" cellspacing = "0" width = "0%">
-		<tr align="left" bgcolor="silver" >			<th>Номер</th>			<th>Код</th>			<th>Мнемоника</th>			<th>Описание</th>		</tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>000</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 
-000; 
-IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00D</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 
-000; 
-IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00E</td><td>0014</td><td>ISZ  014</td><td>[014] + 1 –> 
-014; 
-IF [014] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>00F</td><td>CEBA</td><td>BR  (6BA)</td><td>6BA –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>010</td><td>0848</td><td>ISZ  (048)</td><td>[048] + 1 –> 
-048; 
-IF [048] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>011</td><td>3476</td><td>MOV  476</td><td>[A] –> 476</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>012</td><td>AE05</td><td>BMI  (605)</td><td>IF [A] < 0 THEN 605 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>013</td><td>B0BA</td><td>BEQ  0BA</td><td>IF [A] == 0 AND [C] == 0 THEN 0BA –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>014</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 
-000; 
-IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>015</td><td>0002</td><td>ISZ  002</td><td>[002] + 1 –> 
-002; 
-IF [002] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>016</td><td>F200</td><td>CLA</td><td>0 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>017</td><td>480E</td><td>ADD  (00E)</td><td>[A] + [00E] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>018</td><td>A01A</td><td>BMI  01A</td><td>IF [A] < 0 THEN 01A –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>019</td><td>2021</td><td>JSR  021</td><td>[CK] –> 021; 021 + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01A</td><td>0014</td><td>ISZ  014</td><td>[014] + 1 –> 
-014; 
-IF [014] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01B</td><td>C016</td><td>BR  016</td><td>016 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01C</td><td>F000</td><td>HLT</td><td>0 –> РС(7)</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>01D</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 
-000; 
-IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>020</td><td>0000</td><td>ISZ  000</td><td>[000] + 1 –> 
-000; 
-IF [000] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>021</td><td>001A</td><td>ISZ  01A</td><td>[01A] + 1 –> 
-01A; 
-IF [01A] ≥ 0 THEN [CK] + 1 –> CK</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>022</td><td>F200</td><td>CLA</td><td>0 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>023</td><td>F800</td><td>INC</td><td>[A] + 1 –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>024</td><td>4015</td><td>ADD  015</td><td>[A] + [015] –> A</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>025</td><td>3015</td><td>MOV  015</td><td>[A] –> 015</td></tr>		<tr bgcolor="#d6d6d6" align="left" >
-		<td>026</td><td>C821</td><td>BR  (021)</td><td>021 –> CK</td></tr></table>
-</body>
-</html>
